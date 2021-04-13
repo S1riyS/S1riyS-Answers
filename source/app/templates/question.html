@@ -1,0 +1,42 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/question.css')}}">
+</head>
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="question-wrapper">
+    <div class="question">
+        <p class="user-name">{{ question.user.name }} {{ question.user.surname }}, открыт {{ moment(question.created_date).fromNow(refresh=True) }}</p>
+        <h2 class="question-title">{{ question.title }}</h2>
+        <p class="question-text">{{ question.text }}</p>
+    </div>
+</div>
+<div class="answers">
+    <div class="answer-count-wrapper">
+        <div class="answer-count">
+            <h5 class="counter">Ответов: {{ answers|length }}</h5>
+        </div>
+    </div>
+    <div class="answers-block">
+        {% for item in answers %}
+            <div class="answer-block-wrapper">
+                <div class="answer-block">
+                    <p class="user-name">{{ item.user.name }} {{ item.user.surname }}, {{ moment(item.created_date).fromNow(refresh=True) }}</p>
+                    <p class="question-text">{{ item.text }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="answer-form">
+    <h4 class="title">Ответить на вопрос</h4>
+    <form class="box" action="" method="post">
+        {{ form.hidden_tag() }}
+        {{ form.text(type="text", autocomplete="off") }}
+        {{ form.submit(type="submit") }}
+        {{message}}
+    </form>
+</div>
+{% endblock %}

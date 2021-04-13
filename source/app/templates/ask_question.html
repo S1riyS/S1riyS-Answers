@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ask.css')}}">
+
+{% extends "base.html" %}
+
+{% block content %}
+<form class="box" action="" method="post">
+    <h1>Задать вопрос</h1>
+    {{ form.hidden_tag() }}
+    <p class="field-label">{{ form.title.label.text }}</p>
+        {{ form.title(type="text", autocomplete="off") }}
+    <p class="field-label">{{ form.text.label.text }}</p>
+        {{ form.text(type="text", autocomplete="off") }}
+    {{ form.submit(type="submit") }}
+    {{message}}
+</form>
+{% endblock %}

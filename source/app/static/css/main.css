@@ -1,0 +1,9 @@
+.question_card{
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #222
+}
+
+.flask-moment{
+    display: inline !important;
+}
