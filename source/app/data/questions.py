@@ -17,7 +17,7 @@ class Question(SqlAlchemyBase):
                                 sqlalchemy.ForeignKey("users.id"))
     user = orm.relation('User')
     created_date = sqlalchemy.Column(sqlalchemy.DateTime,
-                                      default=datetime.datetime.now)
+                                      default=datetime.datetime.utcnow)
 
 class Answer(SqlAlchemyBase):
     __tablename__ = 'answers'
@@ -33,4 +33,4 @@ class Answer(SqlAlchemyBase):
                                 sqlalchemy.ForeignKey("questions.id"))
     question = orm.relation('Question')
     created_date = sqlalchemy.Column(sqlalchemy.DateTime,
-                                      default=datetime.datetime.now)
+                                      default=datetime.datetime.utcnow)

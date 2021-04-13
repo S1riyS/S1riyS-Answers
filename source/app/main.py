@@ -21,13 +21,11 @@ app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 def main_page():
     db_sess = db_session.create_session()
     questions = db_sess.query(Question).all()
-    current_time = datetime.datetime.now()
     return render_template(
         'main.html',
         title='Ответы S1RIYS.RU',
         questions=questions,
         user=current_user,
-        current_time=current_time
     )
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -110,7 +108,6 @@ def question_page(question_id):
     return render_template(
                         'question.html',
                         id=question_id,
-                        title='Вопрос',
                         question=question,
                         answers=answers,
                         form=form,
@@ -138,6 +135,11 @@ def ask_question_page():
         else:
             return render_template('ask_question.html', form=form, message='Оба поля должны быть заполены', user=current_user)
     return render_template('ask_question.html', form=form, user=current_user)
+
+@app.errorhandler(404)
+def error_404_page(error):
+    print(error)
+    return redirect(url_for('main_page'))
 
 def main():
     db_session.global_init("db/messenger.db")

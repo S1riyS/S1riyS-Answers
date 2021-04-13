@@ -7,12 +7,10 @@
     <div class="questions">
         {% for item in questions%}
             <div class="col-md6 border rounded question_card">
-                <h2><a href="{{ url_for('question_page', question_id = item.id) }}">{{item.title}}</a></h2>
+                <h4><a href="{{ url_for('question_page', question_id = item.id) }}">{{item.title}}</a></h4>
                 <div>
-                    {{item.text}}
-                </div>
-                <div>
-                    Автор - {{item.user.name}} {{item.user.surname}}, Дата написания - {{ moment(item.created_date).format('LLL') }}
+                    Автор - {{item.user.name}} {{item.user.surname}},
+                    {{ moment(item.created_date).fromNow(refresh=True) }}
                 </div>
             </div>
         {% endfor %}

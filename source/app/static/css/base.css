@@ -50,9 +50,6 @@ header{
     margin-right: 15px;
     transition: 0.15s;
 }
-.nav_item:hover{
-    transform: scale(1.06, 1.06)
-}
 
 .profile{
     font-size: 20px;
