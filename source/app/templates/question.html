@@ -14,6 +14,7 @@
     </div>
 </div>
 <div class="answers">
+    {% set answers = question.get_answers() %}
     <div class="answer-count-wrapper">
         <div class="answer-count">
             <h5 class="counter">Ответов: {{ answers|length }}</h5>
@@ -33,11 +34,18 @@
 
 <div class="answer-form">
     <h4 class="title">Ответить на вопрос</h4>
-    <form class="box" action="" method="post">
-        {{ form.hidden_tag() }}
-        {{ form.text(type="text", autocomplete="off") }}
-        {{ form.submit(type="submit") }}
-        {{message}}
-    </form>
+    {% if current_user %}
+        {% if current_user.is_authenticated %}
+            <form class="box" action="" method="post">
+                {{ form.hidden_tag() }}
+                {{ form.text(type="text", autocomplete="off") }}
+                {{ form.submit(type="submit") }}
+                {{message}}
+            </form>
+        {% else %}
+            <a class="answer-btn" href="{{ url_for('login') }}">Войти</a>
+            <a class="answer-btn" href="{{ url_for('reqister') }}">Зарегистрироваться</a>
+        {% endif %}
+    {% endif %}
 </div>
 {% endblock %}

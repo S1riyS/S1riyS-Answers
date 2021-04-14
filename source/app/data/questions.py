@@ -18,6 +18,12 @@ class Question(SqlAlchemyBase):
     user = orm.relation('User')
     created_date = sqlalchemy.Column(sqlalchemy.DateTime,
                                       default=datetime.datetime.utcnow)
+    def get_answers(self):
+        from data import db_session
+        db_sess = db_session.create_session()
+        answers= db_sess.query(Answer).filter(Answer.question_id == self.id).all()
+        return answers
+
 
 class Answer(SqlAlchemyBase):
     __tablename__ = 'answers'

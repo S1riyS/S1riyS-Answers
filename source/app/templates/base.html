@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,6 +12,7 @@
     <title>{{title}}</title>
 </head>
 <body>
+<!-- Header -->
     <header>
         <div class="container">
             <nav class="navbar header">
@@ -21,12 +22,16 @@
                     <a class="navbar-brand nav_item" href="{{ url_for('ask_question_page') }}">Спросить</a>
                 </div>
                 <div class="nav_right">
-                    {% if user.is_authenticated %}
-                        <a class="profile nav_item" href="{{ url_for('main_page') }}"><i class="fa fa-user" aria-hidden="true"></i> {{ user.name }} {{user.surname }}</a>
-                        <a class="nav_item nav_btn" href="{{ url_for('logout') }}">Выход</a>
-                    {% else %}
-                        <a class="nav_item nav_btn" href="{{ url_for('login') }}">Войти</a>
-                        <a class="nav_item nav_btn" href="{{ url_for('reqister') }}">Зарегистрироваться</a>
+                    {% if current_user %}
+                        {% if current_user.is_authenticated %}
+                            <a class="profile nav_item" href="{{ url_for('main_page') }}">
+                                <i class="fa fa-user" aria-hidden="true"></i> {{ current_user.name }} {{current_user.surname }}
+                            </a>
+                            <a class="nav_item nav_btn" href="{{ url_for('logout') }}">Выход</a>
+                        {% else %}
+                            <a class="nav_item nav_btn" href="{{ url_for('login') }}">Войти</a>
+                            <a class="nav_item nav_btn" href="{{ url_for('reqister') }}">Зарегистрироваться</a>
+                        {% endif %}
                     {% endif %}
                 </div>
             </nav>
@@ -37,6 +42,8 @@
         {% block content %}{% endblock %}
     </main>
 </body>
+
+<!-- Scripts -->
 {% block scripts %}
     {{ moment.include_jquery() }}
     {{ moment.include_moment() }}

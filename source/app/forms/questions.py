@@ -7,7 +7,7 @@ from wtforms.validators import DataRequired
 class QuestionForm(FlaskForm):
     title = StringField('Тема вопроса ', validators=[DataRequired()],)
     text = TextAreaField('Текст вопроса ', validators=[DataRequired()])
-    submit = SubmitField('Отправить')
+    submit = SubmitField('Задать вопрос')
 
 
 class AnswerForm(FlaskForm):

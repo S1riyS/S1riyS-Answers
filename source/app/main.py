@@ -3,7 +3,7 @@ import datetime
 from flask import Flask
 from flask_moment import Moment
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
-from flask import render_template, redirect, request, url_for, session
+from flask import render_template, redirect, request, url_for, session, flash
 
 from data import db_session
 from data.users import User
@@ -25,7 +25,6 @@ def main_page():
         'main.html',
         title='Ответы S1RIYS.RU',
         questions=questions,
-        user=current_user,
     )
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -33,14 +32,14 @@ def reqister():
     form = RegisterForm()
     if form.validate_on_submit():
         if form.password.data != form.password_again.data:
+            flash("Пароли не совпадают")
             return render_template('register.html', title='Регистрация',
-                                   form=form,
-                                   message="Пароли не совпадают")
+                                   form=form)
         db_sess = db_session.create_session()
         if db_sess.query(User).filter(User.email == form.email.data).first():
+            flash("Такой пользователь уже есть")
             return render_template('register.html', title='Регистрация',
-                                   form=form,
-                                   message="Такой пользователь уже есть")
+                                   form=form)
         user = User(
             name=form.name.data,
             surname=form.surname.data,
@@ -73,15 +72,16 @@ def login():
         if email and password:
             user = db_sess.query(User).filter(User.email == form.email.data).first()
             if not user:
-                return render_template('login.html', title='Вход', form=form, message='Неверный логин или пароль!', user=current_user)
+                flash('Неверный логин или пароль!')
+                return render_template('login.html', title='Вход', form=form)
             elif user.check_password(password):
                 login_user(user)
-                session['user_id'] = user.id
                 return redirect(url_for('main_page'))
             else:
-                return render_template('login.html', title='Вход', form=form, message='Неверный логин или пароль!', user=current_user)
+                flash('Неверный логин или пароль!')
+                return render_template('login.html', title='Вход', form=form)
 
-    return render_template('login.html', title='Вход', form=form, user=current_user)
+    return render_template('login.html', title='Вход', form=form)
 
 @app.route('/logout', methods=['GET', 'POST'])
 @login_required
@@ -96,7 +96,6 @@ def question_page(question_id):
     question = db_sess.query(Question).filter(Question.id == question_id).first()
     answers = db_sess.query(Answer).filter(Answer.question_id == question_id).all()
     if form.validate_on_submit():
-        print('Submit!')
         answer = Answer(
             text=form.text.data,
             user_id=current_user.id,
@@ -109,9 +108,7 @@ def question_page(question_id):
                         'question.html',
                         id=question_id,
                         question=question,
-                        answers=answers,
-                        form=form,
-                        user=current_user,
+                        form=form
                     )
 
 @app.route('/ask', methods=['GET', 'POST'])
@@ -122,7 +119,6 @@ def ask_question_page():
     if form.validate_on_submit():
         title = form.title.data
         text = form.text.data
-        print(title, text)
         if title and text:
             question = Question(
                 title=title,

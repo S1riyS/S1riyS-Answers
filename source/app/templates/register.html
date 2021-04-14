@@ -16,6 +16,12 @@
         {{ form.password(type="password", placeholder=form.password.label.text) }}
         {{ form.password_again(type="password", placeholder=form.password_again.label.text) }}
         {{ form.submit(type="submit") }}
-        {{message}}
+        {% with messages = get_flashed_messages() %}
+           {% if messages %}
+              {% for message in messages %}
+                 {{ message }}
+              {% endfor %}
+           {% endif %}
+        {% endwith %}
     </form>
 {% endblock %}

@@ -12,7 +12,13 @@
   {{ form.email(type="text", placeholder=form.email.label.text) }}
   {{ form.password(type="password", placeholder=form.password.label.text) }}
   {{ form.submit(type="submit") }}
-  {{message}}
+  {% with messages = get_flashed_messages() %}
+     {% if messages %}
+        {% for message in messages %}
+           {{ message }}
+        {% endfor %}
+     {% endif %}
+  {% endwith %}
 </form>
 {% endblock %}
 </html>

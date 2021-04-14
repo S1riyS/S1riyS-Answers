@@ -56,19 +56,18 @@ header{
 }
 
 .nav_btn{
-  border:0;
-  background: none;
-  display: block;
-  margin: 20px auto;
-  margin-right: 10px;
-  text-align: center;
-  border: 2px solid #2ecc71;
-  padding: 4px 15px;
-  outline: none;
-  color: white;
-  border-radius: 10px;
-  transition: 0.25s;
-  cursor: pointer;
+    border-radius: 10px;
+    outline: none;
+    border: 2px solid #2ecc71;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    margin-right: 10px;
+    padding: 4px 15px;
+    text-align: center;
+    color: white;
+    transition: 0.25s;
+    cursor: pointer;
 }
 
 .nav_btn:hover{

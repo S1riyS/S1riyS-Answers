@@ -8,10 +8,24 @@
         {% for item in questions%}
             <div class="col-md6 border rounded question_card">
                 <h4><a href="{{ url_for('question_page', question_id = item.id) }}">{{item.title}}</a></h4>
-                <div>
+                <p class="author">
                     Автор - {{item.user.name}} {{item.user.surname}},
                     {{ moment(item.created_date).fromNow(refresh=True) }}
-                </div>
+                </p>
+                <p class="answers">
+                    {% set answer_count = item.get_answers()|length %}
+                    {% if answer_count == 0 %}
+                    <a href="{{ url_for('question_page', question_id = item.id) }}">
+                        <i class="fa fa-commenting" aria-hidden="true"></i>
+                        Ответить
+                    </a>
+                    {% else %}
+                    <a href="{{ url_for('question_page', question_id = item.id) }}">
+                        <i class="fa fa-commenting" aria-hidden="true"></i>
+                        {{ item.get_answers()|length }} ответов
+                    </a>
+                    {% endif %}
+                </p>
             </div>
         {% endfor %}
     </div>
