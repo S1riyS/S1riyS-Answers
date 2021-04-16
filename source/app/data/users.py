@@ -26,3 +26,10 @@ class User(SqlAlchemyBase, UserMixin):
 
     def check_password(self, password):
         return check_password_hash(self.hashed_password, password)
+
+    def get_questions(self):
+        from .db_session import create_session
+        from .questions import Question
+        db_sess = create_session()
+        questions = db_sess.query(Question).filter(Question.user_id == self.id).all()
+        return questions

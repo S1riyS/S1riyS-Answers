@@ -1,0 +1,71 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/profile.css')}}">
+    <title>Профиль: {{ user.name }} {{ user.surname }}</title>
+</head>
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="profile-block">
+
+        <div class="profile-info">
+            <h3 class="name">{{ user.name }} {{ user.surname}}</h3>
+            <p class="email">{{ user.email }}</p>
+        </div>
+
+        {% if current_user %}
+            {% if current_user.id == user.id %}
+                <div class="info-update">
+                    <form class="box" action="" method="post">
+                        <h3 class="form-title">Изменить профиль</h3>
+                        {{ form.hidden_tag() }}
+                        {{ form.name(type="text", autocomplete="none", value=current_user.name, placeholder=form.name.label.text) }}
+                        {{ form.surname(type="text", autocomplete="none", value=current_user.surname, placeholder=form.surname.label.text) }}
+                        {{ form.age(type="text", autocomplete="none", value=current_user.age, placeholder=form.age.label.text) }}
+                        {{ form.email(type="text", autocomplete="none", value=current_user.email, placeholder=form.email.label.text) }}
+                        {{ form.submit(type="submit") }}
+                        {% with messages = get_flashed_messages() %}
+                         {% if messages %}
+                            {% for message in messages %}
+                               {{ message }}
+                            {% endfor %}
+                         {% endif %}
+                        {% endwith %}
+                    </form>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+<div class="user-questions">
+    {% set questions = user.get_questions() %}
+    <div class="question-count-wrapper">
+        <div class="question-count">
+            <h5 class="counter">Задал вопросов: {{ questions|length }}</h5>
+        </div>
+    </div>
+    <div class="questions">
+        {% for item in questions %}
+            <div class="question-block-wrapper">
+                <div class="question-block">
+                    <p class="question-title"><a href="{{ url_for('question_page', question_id = item.id) }}">{{ item.title }}</a></p>
+                    <p class="created_time">{{ moment(item.created_date).fromNow(refresh=True) }}</p>
+                    <p class="answers">
+                        {% set answer_count = item.get_answers()|length %}
+                        {% if answer_count == 0 %}
+                        <a href="{{ url_for('question_page', question_id = item.id) }}">
+                            <i class="fa fa-commenting answer-icon" aria-hidden="true"></i>
+                            Ответить
+                        </a>
+                        {% else %}
+                        <a href="{{ url_for('question_page', question_id = item.id) }}">
+                            <i class="fa fa-commenting answer-icon" aria-hidden="true"></i>
+                            {{ item.get_answers()|length }} ответов
+                        </a>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

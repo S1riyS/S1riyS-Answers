@@ -8,7 +8,11 @@
 {% block content %}
 <div class="question-wrapper">
     <div class="question">
-        <p class="user-name">{{ question.user.name }} {{ question.user.surname }}, открыт {{ moment(question.created_date).fromNow(refresh=True) }}</p>
+        <p class="user-name">
+            <a href="{{ url_for('profile_page', profile_id = question.user.id) }}">
+                {{ question.user.name }} {{ question.user.surname }}
+            </a>, открыт {{ moment(question.created_date).fromNow(refresh=True) }}
+        </p>
         <h2 class="question-title">{{ question.title }}</h2>
         <p class="question-text">{{ question.text }}</p>
     </div>
@@ -24,7 +28,11 @@
         {% for item in answers %}
             <div class="answer-block-wrapper">
                 <div class="answer-block">
-                    <p class="user-name">{{ item.user.name }} {{ item.user.surname }}, {{ moment(item.created_date).fromNow(refresh=True) }}</p>
+                    <p class="user-name">
+                        <a href="{{ url_for('profile_page', profile_id = item.user.id) }}">
+                            {{ item.user.name }} {{ item.user.surname }}
+                        </a>,
+                        {{ moment(item.created_date).fromNow(refresh=True) }}</p>
                     <p class="question-text">{{ item.text }}</p>
                 </div>
             </div>

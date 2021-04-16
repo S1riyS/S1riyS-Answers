@@ -9,7 +9,7 @@
             <div class="col-md6 border rounded question_card">
                 <h4><a href="{{ url_for('question_page', question_id = item.id) }}">{{item.title}}</a></h4>
                 <p class="author">
-                    Автор - {{item.user.name}} {{item.user.surname}},
+                    <a href="{{ url_for('profile_page', profile_id = item.user.id) }}">{{item.user.name}} {{item.user.surname}}</a>,
                     {{ moment(item.created_date).fromNow(refresh=True) }}
                 </p>
                 <p class="answers">
