@@ -8,14 +8,30 @@
     margin-bottom: 20px;
 }
 .profile-info{
-    padding: 20px
+    padding: 20px;
+    display: flex;
+    align-items: flex-start;
 }
-
+.profile_picture{
+    width: 80px;
+    border-radius: 50%;
+    margin-right: 20px;
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(150, 150, 150, 0.17);
+    -moz-box-shadow:    0px 0px 15px 0px rgba(150, 150, 150, 0.17);
+    box-shadow:         0px 0px 15px 0px rgba(150, 150, 150, 0.17);
+}
+.info{
+    display: inline-flex;
+    flex-flow: column;
+}
 .name{
     font-size: 30px;
+    display: inline;
+    margin: 0;
 }
 .email{
     font-size: 17px;
+    display: inline;
 }
 
 .info-update:before{
@@ -52,6 +68,49 @@
   width: 380px;
   border-color: #2ecc71;
 }
+
+.input-file{
+    display: none;
+}
+.load-avatar-btn .btn-tertiary{
+    color:#FFF;
+    padding:0;
+    line-height:40px;
+    width:300px;
+    margin:auto;
+    display:block;
+    border:2px solid #3498db;
+    border-radius: 24px;
+    }
+.load-avatar-btn .btn-tertiary:hover,.example-2 .btn-tertiary:focus{
+    color:#FFF;
+    border-color:#2ecc71;
+    transition: 0.25s;
+}
+.load-avatar-btn .input-file{
+    width:.1px;
+    height:.1px;
+    opacity:0;
+    overflow:hidden;
+    position:absolute;
+    z-index:-1
+}
+.load-avatar-btn .input-file + .js-labelFile{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    padding:0 10px;
+    cursor:pointer
+}
+.load-avatar-btn .input-file + .js-labelFile .icon:before{
+content:"\f093"
+}
+.load-avatar-btn .input-file + .js-labelFile.has-file .icon:before{
+content:"\f00c";color:#FFF
+}
+
+
+
 .box input[type = "submit"]{
   border:0;
   background: none;

@@ -12,6 +12,7 @@ class User(SqlAlchemyBase, UserMixin):
                            primary_key=True, autoincrement=True)
     surname = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     name = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    image_file = sqlalchemy.Column(sqlalchemy.String, nullable=False, default='default.jpg')
     age = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
     country = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     city = sqlalchemy.Column(sqlalchemy.String, nullable=True)

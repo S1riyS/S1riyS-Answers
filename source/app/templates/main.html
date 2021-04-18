@@ -6,7 +6,7 @@
 {% block content %}
     <div class="questions">
         {% for item in questions%}
-            <div class="col-md6 border rounded question_card">
+            <div class="col-md6 question_card">
                 <h4><a href="{{ url_for('question_page', question_id = item.id) }}">{{item.title}}</a></h4>
                 <p class="author">
                     <a href="{{ url_for('profile_page', profile_id = item.user.id) }}">{{item.user.name}} {{item.user.surname}}</a>,

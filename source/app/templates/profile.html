@@ -9,20 +9,33 @@
 <div class="profile-block">
 
         <div class="profile-info">
-            <h3 class="name">{{ user.name }} {{ user.surname}}</h3>
-            <p class="email">{{ user.email }}</p>
+            <img src="{{ url_for('static', filename='images/profile_pics/' + user.image_file) }}" alt="" class="profile_picture">
+            <div class="info">
+                <h3 class="name">{{ user.name }} {{ user.surname}}</h3>
+                <p class="email">{{ user.email }}</p>
+            </div>
         </div>
 
         {% if current_user %}
             {% if current_user.id == user.id %}
                 <div class="info-update">
-                    <form class="box" action="" method="post">
+                    <form class="box" action="" method="post" enctype=multipart/form-data>
                         <h3 class="form-title">Изменить профиль</h3>
                         {{ form.hidden_tag() }}
                         {{ form.name(type="text", autocomplete="none", value=current_user.name, placeholder=form.name.label.text) }}
                         {{ form.surname(type="text", autocomplete="none", value=current_user.surname, placeholder=form.surname.label.text) }}
                         {{ form.age(type="text", autocomplete="none", value=current_user.age, placeholder=form.age.label.text) }}
                         {{ form.email(type="text", autocomplete="none", value=current_user.email, placeholder=form.email.label.text) }}
+                        <div class="load-avatar-btn">
+                            <div class="form-group">
+                                {{ form.profile_image(type="file", id="file", class="input-file") }}
+                                <label for="file" class="btn btn-tertiary js-labelFile">
+                                    <i class="icon fa fa-upload"></i>
+                                    <span class="js-fileName">Загрузить аватар</span>
+                                </label>
+                            </div>
+                        </div>
+
                         {{ form.submit(type="submit") }}
                         {% with messages = get_flashed_messages() %}
                          {% if messages %}

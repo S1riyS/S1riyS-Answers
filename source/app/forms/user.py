@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import PasswordField, StringField, TextAreaField, SubmitField, IntegerField
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import DataRequired
+from flask_wtf.file import FileField, FileAllowed
 
 
 class RegisterForm(FlaskForm):
@@ -25,4 +26,5 @@ class UpdateProfileForm(FlaskForm):
     surname = StringField('Фамилия', validators=[DataRequired()])
     age = IntegerField('Возраст', validators=[DataRequired()])
     email = EmailField('Почта', validators=[DataRequired()])
+    profile_image = FileField('Аватар профиля', validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Изменить')

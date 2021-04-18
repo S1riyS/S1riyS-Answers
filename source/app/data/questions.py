@@ -32,6 +32,8 @@ class Answer(SqlAlchemyBase):
                            primary_key=True, autoincrement=True)
 
     text = sqlalchemy.Column(sqlalchemy.String)
+    likes = sqlalchemy.Column(sqlalchemy.Integer, default=0)
+    is_best = sqlalchemy.Column(sqlalchemy.Boolean, default=False)
     user_id = sqlalchemy.Column(sqlalchemy.Integer,
                                 sqlalchemy.ForeignKey("users.id"))
     user = orm.relation('User')

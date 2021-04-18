@@ -1,8 +1,13 @@
+import os
+from PIL import Image
+import secrets
 ########## FLASK И ДОПОЛНИТЕЛЬНЫЕ МОДУЛИ ##########
 from flask import Flask
-from flask_moment import Moment
-from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from flask import render_template, redirect, request, url_for, session, flash
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from flask_moment import Moment
+# from flask_migrate import Migrate, MigrateCommand
+# from flask_script import Manager
 ########## КЛАССЫ ##########
 from data import db_session
 from data.users import User
@@ -89,6 +94,19 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('main_page'))
+########## СОХРАНЕНИЕ АВАТАРА В БД И ПАПКУ ##########
+def save_picture(form_picture):
+    random_hex = secrets.token_hex(8)
+    f_name, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/images/profile_pics', picture_fn)
+
+    output_size = (125, 125)
+    image = Image.open(form_picture)
+    image.thumbnail(output_size)
+    image.save(picture_path)
+
+    return picture_fn
 ########## СТРАНИЦА ПРОФИЛЯ ##########
 @app.route('/profile/<int:profile_id>', methods=['GET', 'POST'])
 def profile_page(profile_id):
@@ -96,6 +114,12 @@ def profile_page(profile_id):
     db_sess = db_session.create_session()
 
     if form.validate_on_submit():
+        print(form.profile_image.data)
+        if form.profile_image.data:
+            print(form.profile_image.data.filename)
+            picture_file = save_picture(form.profile_image.data)
+            current_user.image_file = picture_file
+
         current_user.name = form.name.data
         current_user.surname = form.surname.data
         current_user.age = form.age.data
