@@ -5,28 +5,32 @@
 
 {% block content %}
     <div class="questions">
-        {% for item in questions%}
-            <div class="col-md6 question_card">
-                <h4><a href="{{ url_for('question_page', question_id = item.id) }}">{{item.title}}</a></h4>
-                <p class="author">
-                    <a href="{{ url_for('profile_page', profile_id = item.user.id) }}">{{item.user.name}} {{item.user.surname}}</a>,
-                    {{ moment(item.created_date).fromNow(refresh=True) }}
-                </p>
-                <p class="answers">
-                    {% set answer_count = item.get_answers()|length %}
-                    {% if answer_count == 0 %}
-                    <a href="{{ url_for('question_page', question_id = item.id) }}">
-                        <i class="fa fa-commenting" aria-hidden="true"></i>
-                        Ответить
-                    </a>
-                    {% else %}
-                    <a href="{{ url_for('question_page', question_id = item.id) }}">
-                        <i class="fa fa-commenting" aria-hidden="true"></i>
-                        {{ item.get_answers()|length }} ответов
-                    </a>
-                    {% endif %}
-                </p>
-            </div>
-        {% endfor %}
+        {% if questions|length == 0 %}
+            <p class="nothing-to-show">Пока что здесь ничего нет</p>
+        {% else %}
+            {% for item in questions%}
+                <div class="col-md6 question_card">
+                    <h4><a href="{{ url_for('question_page', question_id = item.id) }}">{{item.title}}</a></h4>
+                    <p class="author">
+                        <a href="{{ url_for('profile_page', profile_id = item.user.id) }}">{{item.user.name}} {{item.user.surname}}</a>,
+                        {{ moment(item.created_date).fromNow(refresh=True) }}
+                    </p>
+                    <p class="answers">
+                        {% set answer_count = item.get_answers()|length %}
+                        {% if answer_count == 0 %}
+                        <a href="{{ url_for('question_page', question_id = item.id) }}#text">
+                            <i class="fa fa-commenting" aria-hidden="true"></i>
+                            Ответить
+                        </a>
+                        {% else %}
+                        <a href="{{ url_for('question_page', question_id = item.id) }}#text">
+                            <i class="fa fa-commenting" aria-hidden="true"></i>
+                            {{ item.get_answers()|length }} ответов
+                        </a>
+                        {% endif %}
+                    </p>
+                </div>
+            {% endfor %}
+        {% endif %}
     </div>
 {% endblock %}

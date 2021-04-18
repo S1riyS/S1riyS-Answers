@@ -46,11 +46,11 @@
 
                         {{ form.submit(type="submit") }}
                         {% with messages = get_flashed_messages() %}
-                         {% if messages %}
-                            {% for message in messages %}
-                               {{ message }}
-                            {% endfor %}
-                         {% endif %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                    {{ message }}
+                                {% endfor %}
+                            {% endif %}
                         {% endwith %}
                     </form>
                 </div>
@@ -73,7 +73,7 @@
                     <p class="answers">
                         {% set answer_count = item.get_answers()|length %}
                         {% if answer_count == 0 %}
-                        <a href="{{ url_for('question_page', question_id = item.id) }}">
+                        <a href="{{ url_for('question_page', question_id = item.id) }}#text">
                             <i class="fa fa-commenting answer-icon" aria-hidden="true"></i>
                             Ответить
                         </a>

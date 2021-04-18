@@ -166,7 +166,22 @@ def question_page(question_id):
         "question.html", id=question_id, question=question, form=form
     )
 
+########## СТРАНИЦА УДАЛЕНИЯ ВОПРОСА ##########
+@app.route('/question_delete/<int:question_id>', methods=['GET', 'POST'])
+@login_required
+def question_delete(question_id):
+    db_sess = db_session.create_session()
+    question = db_sess.query(Question).filter(
+        Question.id == question_id,
+        Question.user == current_user
+    ).first()
 
+    if question:
+        db_sess.delete(question)
+        db_sess.commit()
+    else:
+        abort(404)
+    return redirect(url_for('main_page'))
 ########## СТРАНИЦА С СОЗДАНИЕМ ВОПРОСА ##########
 @app.route("/ask", methods=["GET", "POST"])
 @login_required

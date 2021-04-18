@@ -15,6 +15,13 @@
         </p>
         <h2 class="question-title">{{ question.title }}</h2>
         <p class="question-text">{{ question.text }}</p>
+        {% if current_user %}
+            {% if current_user.id == question.user.id %}
+                <a class="delete-question-btn" href="{{ url_for('question_delete', question_id=question.id) }}">
+                    <i class="fa fa-trash-o" aria-hidden="true"></i> Удалить вопрос
+                </a>
+            {% endif %}
+        {% endif %}
     </div>
 </div>
 <div class="answers">

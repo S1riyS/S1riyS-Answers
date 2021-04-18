@@ -5,7 +5,10 @@
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 5px;
 }
-
+.nothing-to-show{
+    text-align: center;
+    font-size: 30px;
+}
 .author{
     display: inline-block;
     margin-right: 20px;
