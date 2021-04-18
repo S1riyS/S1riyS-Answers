@@ -13,12 +13,20 @@
             <div class="info">
                 <h3 class="name">{{ user.name }} {{ user.surname}}</h3>
                 <p class="email">{{ user.email }}</p>
+                <p class="registration-date">На сайте с {{ moment(user.registration_date).format('LL') }}</p>
             </div>
+            {% if current_user %}
+                {% if current_user.id == user.id %}
+                    <a class="info-update-btn" data-toggle="collapse" href="#info-update" role="button" aria-expanded="false" aria-controls="info-update">
+                        Изменить профиль
+                    </a>
+                {% endif %}
+             {% endif %}
         </div>
 
         {% if current_user %}
             {% if current_user.id == user.id %}
-                <div class="info-update">
+                <div class="info-update collapse" id="info-update">
                     <form class="box" action="" method="post" enctype=multipart/form-data>
                         <h3 class="form-title">Изменить профиль</h3>
                         {{ form.hidden_tag() }}
@@ -81,4 +89,9 @@
         {% endfor %}
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="{{ url_for('static', filename = 'js/bootstrap.min.js') }}"></script>
 {% endblock %}

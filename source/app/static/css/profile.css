@@ -11,9 +11,26 @@
     padding: 20px;
     display: flex;
     align-items: flex-start;
+    position: relative;
+}
+.info-update-btn{
+    position: absolute;
+    right: 20px;
+    color:#FFF;
+    line-height:40px;
+    padding: 0 10px;
+    display:block;
+    border:2px solid #3498db;
+    border-radius: 12px;
+    text-align: center;
+}
+.info-update-btn:hover{
+    color:#FFF;
+    border-color:#2ecc71;
+    transition: 0.25s;
 }
 .profile_picture{
-    width: 80px;
+    width: 100px;
     border-radius: 50%;
     margin-right: 20px;
     -webkit-box-shadow: 0px 0px 15px 0px rgba(150, 150, 150, 0.17);
@@ -32,6 +49,7 @@
 .email{
     font-size: 17px;
     display: inline;
+    margin-bottom: 5px;
 }
 
 .info-update:before{

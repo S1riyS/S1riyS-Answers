@@ -4,7 +4,8 @@ html{
 
 body{
     background-color: #191919 !important;
-    color: #ffffff
+    color: #ffffff;
+    overflow-y: scroll;
 }
 
 a{
