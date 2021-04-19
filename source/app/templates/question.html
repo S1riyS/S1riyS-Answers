@@ -38,8 +38,7 @@
                     <p class="user-name">
                         <a href="{{ url_for('profile_page', profile_id = item.user.id) }}">
                             {{ item.user.name }} {{ item.user.surname }}
-                        </a>,
-                        {{ moment(item.created_date).fromNow(refresh=True) }}</p>
+                        </a>, {{ moment(item.created_date).fromNow(refresh=True) }}</p>
                     <p class="question-text">{{ item.text }}</p>
                 </div>
             </div>

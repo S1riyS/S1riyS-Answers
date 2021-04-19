@@ -78,9 +78,9 @@
                             Ответить
                         </a>
                         {% else %}
-                        <a href="{{ url_for('question_page', question_id = item.id) }}">
+                        <a href="{{ url_for('question_page', question_id = item.id) }}#text">
                             <i class="fa fa-commenting answer-icon" aria-hidden="true"></i>
-                            {{ item.get_answers()|length }} ответов
+                            {{ answer_count }} {{ item.correct_form(answer_count) }}
                         </a>
                         {% endif %}
                     </p>

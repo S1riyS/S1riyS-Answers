@@ -24,6 +24,15 @@ class Question(SqlAlchemyBase):
         answers= db_sess.query(Answer).filter(Answer.question_id == self.id).all()
         return answers
 
+    @staticmethod
+    def correct_form(number:int):
+        if number % 10 == 1:
+            return 'ответ'
+        elif 2 <= number % 10 <= 4:
+            return 'ответа'
+        else:
+            print('zxc')
+            return 'ответов'
 
 class Answer(SqlAlchemyBase):
     __tablename__ = 'answers'
